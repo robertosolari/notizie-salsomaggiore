@@ -79,6 +79,10 @@ della pagina originale. Per questo:
 4. *Actions, Novita del Comune, Run workflow*: il primo giro segna le notizie
    esistenti. Dal giro dopo pubblica le nuove.
 
+Per provare il canale con notizie vere, *Run workflow* con **pubblica_ultime** a 2:
+escono le ultime due notizie, anche se gia' viste, e tutte le altre vengono segnate
+come viste. I giri programmati non usano mai questa opzione.
+
 GitHub sospende i workflow programmati dopo 60 giorni senza commit nel repository.
 Qui ogni notizia pubblicata e' un commit, quindi non succede finche' il Comune scrive.
 

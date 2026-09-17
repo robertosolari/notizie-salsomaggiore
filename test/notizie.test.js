@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { urlNotizie, leggiNotizie, daPubblicare, testo, SITO } from '../src/comune.js';
+import { urlNotizie, leggiNotizie, daPubblicare, ultimeDaPubblicare, testo, SITO } from '../src/comune.js';
 import { chiamata, ripiegoTesto, testoMessaggio, accorcia, LIMITE_DIDASCALIA } from '../src/messaggio.js';
 
 // Risposta vera del portale del 17 settembre 2026, le prime sei novita'.
@@ -100,4 +100,26 @@ test('riassunti lunghi: la didascalia resta nel limite, tagliata su una parola',
   assert.match(didascalia, /…\n\n<a href=/);
   assert.equal(accorcia('una frase abbastanza lunga', 14), 'una frase…');
   assert.equal(accorcia('breve', 14), 'breve');
+});
+
+test('giro a mano: le ultime N escono comunque, tutte le altre diventano viste', () => {
+  const notizie = leggiNotizie(RISPOSTA, OGGI);
+  const [prima, seconda] = notizie;
+
+  // Senza elenco delle viste, come al primo giro.
+  const scelta = ultimeDaPubblicare(notizie, null, 2);
+  assert.deepEqual(scelta.nuove.map((n) => n.id), [seconda.id, prima.id]);
+  assert.equal(scelta.viste.length, notizie.length - 2);
+  assert.ok(!scelta.viste.includes(prima.id) && !scelta.viste.includes(seconda.id));
+
+  // Con le due ultime gia' pubblicate: si ripubblicano, e restano viste anche le vecchie
+  // uscite dalla finestra delle 30 notizie.
+  const giaViste = ['vecchia-fuori-finestra', ...notizie.map((n) => n.id)];
+  const ancora = ultimeDaPubblicare(notizie, giaViste, 2);
+  assert.equal(ancora.nuove.length, 2);
+  assert.ok(ancora.viste.includes('vecchia-fuori-finestra'));
+  assert.equal(new Set(ancora.viste).size, ancora.viste.length);
+
+  // Dopo la pubblicazione, il giro normale non trova piu' niente.
+  assert.deepEqual(daPubblicare(notizie, [...scelta.viste, prima.id, seconda.id]), []);
 });

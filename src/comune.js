@@ -98,3 +98,19 @@ export function daPubblicare(notizie, viste) {
   const gia = new Set(viste);
   return notizie.filter((n) => !gia.has(n.id)).sort((x, y) => x.pubblicata - y.pubblicata);
 }
+
+/**
+ * Il giro deciso a mano: pubblica comunque le ultime `ultime` notizie, anche se gia'
+ * viste, e segna tutte le altre come viste. Serve a provare il canale con notizie vere.
+ * Restituisce le notizie da pubblicare e l'elenco delle viste da cui partire.
+ */
+export function ultimeDaPubblicare(notizie, viste, ultime) {
+  const recenti = [...notizie].sort((x, y) => y.pubblicata - x.pubblicata);
+  const scelte = recenti.slice(0, ultime);
+  const idScelte = new Set(scelte.map((n) => n.id));
+  const altre = new Set([...(viste || []), ...recenti.map((n) => n.id)]);
+  return {
+    nuove: scelte.sort((x, y) => x.pubblicata - y.pubblicata),
+    viste: [...altre].filter((id) => !idScelte.has(id)),
+  };
+}

@@ -6,12 +6,14 @@
 // Variabili d'ambiente:
 //   TELEGRAM_TOKEN   il token del bot, da @BotFather
 //   TELEGRAM_CANALE  @nomecanale, con il bot amministratore
+//   PUBBLICA_ULTIME  solo a mano: pubblica comunque le ultime N notizie (massimo 5)
+//                    e segna le altre come viste, per provare il canale
 //
 // Con --prova, o senza token, stampa i messaggi e non tocca l'elenco delle viste.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { urlNotizie, leggiNotizie, daPubblicare } from '../src/comune.js';
+import { urlNotizie, leggiNotizie, daPubblicare, ultimeDaPubblicare } from '../src/comune.js';
 import { chiamata, ripiegoTesto } from '../src/messaggio.js';
 
 const FILE_VISTE = new URL('../data/viste.json', import.meta.url);
@@ -20,7 +22,10 @@ const FILE_VISTE = new URL('../data/viste.json', import.meta.url);
 const MASSIMO_PER_GIRO = 8;
 const PAUSA_TRA_MESSAGGI_MS = 3500;
 
+const MASSIMO_ULTIME = 5;
+
 const prova = process.argv.includes('--prova');
+const ultime = Math.max(0, Math.min(MASSIMO_ULTIME, Math.floor(Number(process.env.PUBBLICA_ULTIME) || 0)));
 const { TELEGRAM_TOKEN: token, TELEGRAM_CANALE: canale } = process.env;
 const pubblica = !prova && Boolean(token && canale);
 const attendi = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -60,8 +65,9 @@ const notizie = leggiNotizie(await risposta.json());
 if (!notizie.length) throw new Error('il portale ha risposto senza notizie: non tocco nulla');
 
 // 2. Primo giro: tutto quello che c'e' oggi conta come gia' visto.
-const stato = await leggiViste();
-if (!stato) {
+//    Con PUBBLICA_ULTIME si salta: le ultime N escono, le altre diventano viste.
+let stato = await leggiViste();
+if (!stato && !ultime) {
   const iniziale = { dal: new Date().toISOString(), viste: notizie.map((n) => n.id) };
   if (prova) {
     console.log(`primo giro: segnerei ${notizie.length} notizie come gia' viste, senza pubblicarle`);
@@ -73,7 +79,18 @@ if (!stato) {
 }
 
 // 3. Le novita'.
-const nuove = daPubblicare(notizie, stato.viste);
+let nuove;
+if (ultime) {
+  const scelta = ultimeDaPubblicare(notizie, stato?.viste, ultime);
+  stato = { dal: stato?.dal || new Date().toISOString(), viste: scelta.viste };
+  nuove = scelta.nuove;
+  console.log(`giro a mano: pubblico le ultime ${nuove.length} notizie, le altre ${scelta.viste.length} restano segnate come viste
+`);
+  // Si salva solo se si pubblica davvero: una prova non deve cambiare cosa esce dopo.
+  if (pubblica) await salvaViste(stato);
+} else {
+  nuove = daPubblicare(notizie, stato.viste);
+}
 if (!nuove.length) {
   console.log('nessuna novita');
   process.exit(0);
