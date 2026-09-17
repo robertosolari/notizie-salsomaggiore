@@ -18,7 +18,8 @@ export function accorcia(testo, massimo) {
 /** Il testo del messaggio, dentro il limite. Il riassunto e' l'unica parte che si accorcia. */
 export function testoMessaggio(n, limite) {
   const testa = `${n.sezione.emoji} <b>${sicuro(n.sezione.nome)}</b>\n<b>${sicuro(n.titolo)}</b>`;
-  const piede = `<a href="${sicuro(n.link)}">→ Leggi sul sito del Comune</a>`;
+  // Le note legali del Comune chiedono link "chiaramente titolati" con il nome del sito.
+  const piede = `<a href="${sicuro(n.link)}">→ Leggi sul sito del Comune di Salsomaggiore Terme</a>`;
   if (!n.riassunto) return `${testa}\n\n${piede}`;
 
   // Lo spazio si misura sul testo escapato, piu' lungo di quello che Telegram

@@ -58,6 +58,17 @@ o se Telegram non riesce a scaricarla (il limite e' 5 MB), esce solo il testo co
 l'anteprima del link. Le didascalie si fermano a 1024 caratteri, tagliando il
 riassunto su una parola.
 
+## Condizioni del sito del Comune
+
+Le [note legali](https://www.comune.salsomaggiore-terme.pr.it/note-legali) consentono di
+riutilizzare i contenuti per finalita' non commerciali, citando la fonte e l'indirizzo
+della pagina originale. Per questo:
+
+- ogni messaggio porta il link alla notizia, titolato "sito del Comune di Salsomaggiore
+  Terme" come chiedono le regole sui collegamenti;
+- titolo e riassunto sono quelli del Comune, accorciati solo se troppo lunghi;
+- il canale e' dichiaratamente non ufficiale, senza stemma del Comune e senza pubblicita'.
+
 ## Messa in funzione
 
 1. Su @BotFather, `/newbot`: il token.

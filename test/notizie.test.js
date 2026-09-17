@@ -74,7 +74,7 @@ test('il messaggio: foto con didascalia, sezione, titolo, riassunto, link', () =
   const righe = conFoto.parametri.caption.split('\n');
   assert.equal(righe[0], '⚠️ <b>Allerta meteo</b>');
   assert.equal(righe[1], '<b>Allerta di Protezione civile n° 099/2026</b>');
-  assert.ok(conFoto.parametri.caption.endsWith(`<a href="${allerta.link}">→ Leggi sul sito del Comune</a>`));
+  assert.ok(conFoto.parametri.caption.endsWith(`<a href="${allerta.link}">→ Leggi sul sito del Comune di Salsomaggiore Terme</a>`));
 
   const senzaFoto = ripiegoTesto({ ...allerta, immagine: `${SITO}/x.jpg` }, '@canale');
   assert.equal(senzaFoto.metodo, 'sendMessage');
