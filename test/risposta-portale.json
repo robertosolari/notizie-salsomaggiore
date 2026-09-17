@@ -1,0 +1,117 @@
+{
+ "status": "ok",
+ "page": {
+  "index": 1,
+  "entitiesCount": 6,
+  "entities": [
+   {
+    "id": "6aaa6792b60c32bc8a9ab7ac",
+    "name": "Allerta di Protezione civile n 0992026",
+    "parent": "/News/Avvisi/Allerte Meteo",
+    "slug": "allerta-di-protezione-civile-n0992026",
+    "firstPublishedAt": "2026-09-16T09:55:30.793Z",
+    "createdAt": "2026-09-16T09:55:30.793Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Allerta di Protezione civile n° 099/2026",
+     "sys_titolo_breve": "Allerta di Protezione civile n° 099/2026",
+     "sys_riassunto": "<p>L'Agenzia Regionale di Protezione Civile ha emanato l'Allerta 099/2026 valida dalle 00:00 del 17-09-2026 alle 00:00 del 18-09-2026</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+     "sys_slug": "allerta-di-protezione-civile-n0992026",
+     "sys_canonical_url": "/allerta-di-protezione-civile-n0992026",
+     "sys_start_pub_date": "2026-09-15T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "62a1c764065d9100987851c9"
+    }
+   },
+   {
+    "id": "6aaa47bcb60c32bc8a8fc368",
+    "name": "Diventa volontario",
+    "parent": "/News/Notizie",
+    "slug": "diventa-volontario",
+    "firstPublishedAt": "2026-09-14T12:08:23.368Z",
+    "createdAt": "2026-09-14T11:54:26.363Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Diventa volontario",
+     "sys_titolo_breve": "Diventa volontario",
+     "sys_riassunto": "<p>A Salsomaggiore Terme si cercano nuovi volontari Auser: &ldquo;Ogni gesto conta&rdquo;</p>",
+     "sys_slug": "diventa-volontario",
+     "sys_canonical_url": "/novita/notizie/diventa-volontario",
+     "sys_start_pub_date": "2026-09-13T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "6aa95128ff9f23009974c32c"
+    }
+   },
+   {
+    "id": "6aa3b22eb60c32bc8a7aeb16",
+    "name": "Pallavolo formazione e grandi protagonisti a Salsomaggiore",
+    "parent": "/News/Notizie",
+    "slug": "pallavolo-formazione-e-grandi-protagonisti-a-salsomaggiore",
+    "firstPublishedAt": "2026-09-11T07:47:58.128Z",
+    "createdAt": "2026-09-11T07:47:58.128Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Pallavolo: formazione e grandi protagonisti a Salsomaggiore",
+     "sys_titolo_breve": "Pallavolo: formazione e grandi protagonisti a Salsomaggiore",
+     "sys_riassunto": "<p>Il 12 e 13 settembre il Palazzetto dello Sport ospita la seconda edizione di &ldquo;The Knowledge Exchange&rdquo;</p>",
+     "sys_slug": "pallavolo-formazione-e-grandi-protagonisti-a-salsomaggiore",
+     "sys_canonical_url": "/novita/notizie/pallavolo-formazione-e-grandi-protagonisti-a-salsomaggiore",
+     "sys_start_pub_date": "2026-09-10T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "6aa3b663206fbc009861e10f"
+    }
+   },
+   {
+    "id": "6aa3b0d6b60c32bc8a7a83d2",
+    "name": "Controlli in corso sui ponti del territorio",
+    "parent": "/News/Notizie",
+    "slug": "controlli-ponti-territorio",
+    "firstPublishedAt": "2026-09-11T07:42:14.539Z",
+    "createdAt": "2026-09-11T07:42:14.539Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Controlli in corso sui ponti del territorio",
+     "sys_titolo_breve": "Controlli in corso sui ponti del territorio",
+     "sys_riassunto": "<p>In corso in questi giorni con l&rsquo;utilizzo di una piattaforma &lsquo;By Bridge&rsquo;</p>",
+     "sys_slug": "controlli-ponti-territorio",
+     "sys_canonical_url": "/novita/notizie/controlli-ponti-territorio",
+     "sys_start_pub_date": "2026-09-10T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "6aa3b62cff9f230099711c3a"
+    }
+   },
+   {
+    "id": "6aa3af1eb60c32bc8a7a02a5",
+    "name": "Tommasini a settembre la prima campanella dellAlberghiero al nuovo polo scolastico",
+    "parent": "/News/Notizie",
+    "slug": "tommasini-settembre-alberghiero-nuovo-polo-scolastico",
+    "firstPublishedAt": "2026-09-11T07:34:54.439Z",
+    "createdAt": "2026-09-11T07:34:54.439Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Tommasini, a settembre la prima campanella dell’Alberghiero al nuovo polo scolastico",
+     "sys_titolo_breve": "Tommasini, a settembre la prima campanella dell’Alberghiero al nuovo polo scolastico",
+     "sys_riassunto": "<p>L&rsquo;Istituto Alberghiero Magnaghi Solari si prepara al trasferimento nel complesso riqualificato dell&rsquo;ex Tommasini. Liberate le aule di via Mistrali, che tornano nella disponibilit&agrave; del Comune</p>",
+     "sys_slug": "tommasini-settembre-alberghiero-nuovo-polo-scolastico",
+     "sys_canonical_url": "/novita/notizie/tommasini-settembre-alberghiero-nuovo-polo-scolastico",
+     "sys_start_pub_date": "2026-09-10T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "66b1fa75e3f6810099a7dc74"
+    }
+   },
+   {
+    "id": "6aa01ec8b60c32bc8ad0ad83",
+    "name": "Salsomaggiore Terme 120mila euro da FUNT 2026 per il progetto Food Sport Benessere and Longevita Smart Destination",
+    "parent": "/News/Notizie",
+    "slug": "salsomaggiore-terme-funt-2026-smart-destination",
+    "firstPublishedAt": "2026-09-08T14:42:16.796Z",
+    "createdAt": "2026-09-08T14:42:16.796Z",
+    "type": "rer_news",
+    "attributes": {
+     "sys_title": "Salsomaggiore Terme, 120mila euro da FUNT 2026 per il progetto “Food, Sport, Benessere & Longevità - Smart Destination”",
+     "sys_titolo_breve": "Salsomaggiore Terme, 120mila euro da FUNT 2026 per il progetto “Food, Sport, Benessere & Longevità - Smart Destination”",
+     "sys_riassunto": "<p>Ammesso a finanziamento il progetto presentato dal Comune: l&rsquo;investimento complessivo ammonta a 240mila euro.&nbsp;</p>",
+     "sys_slug": "salsomaggiore-terme-funt-2026-smart-destination",
+     "sys_canonical_url": "/novita/notizie/salsomaggiore-terme-funt-2026-smart-destination",
+     "sys_start_pub_date": "2026-09-07T22:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": "66f28812fca898009923efeb"
+    }
+   }
+  ]
+ }
+}

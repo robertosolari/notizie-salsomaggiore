@@ -1,0 +1,55 @@
+name: Novita del Comune
+
+# Ogni mezz'ora dalle 05 alle 21:30 UTC, cioe' dalle 07 alle 23:30 italiane d'estate
+# (un'ora prima d'inverno). Di notte il Comune non pubblica, e i minuti di GitHub
+# Actions dei repository privati non sono infiniti.
+on:
+  schedule:
+    - cron: '*/30 5-21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Due giri sovrapposti pubblicherebbero due volte la stessa notizia.
+concurrency:
+  group: novita-comune
+  cancel-in-progress: false
+
+jobs:
+  controlla:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # ref: main e non il commit di lancio: un giro in coda deve vedere
+      # l'elenco delle notizie gia' pubblicate aggiornato dal giro prima.
+      - name: Scarica il repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Prepara Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      # Secret del repository, non di un ambiente: questo job gira 36 volte al
+      # giorno e un ambiente creerebbe un deployment a ogni giro.
+      - name: Controlla e pubblica
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CANALE: ${{ secrets.TELEGRAM_CANALE || vars.TELEGRAM_CANALE }}
+        run: node tools/controlla.mjs
+
+      # Si salva l'elenco delle notizie pubblicate anche se un messaggio e' fallito:
+      # quelle uscite non devono ripartire al giro dopo.
+      - name: Salva le notizie pubblicate
+        if: always()
+        run: |
+          git diff --quiet -- data/ && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/
+          git commit -m "Notizie pubblicate: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
