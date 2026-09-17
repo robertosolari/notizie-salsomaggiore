@@ -30,6 +30,15 @@ const { TELEGRAM_TOKEN: token, TELEGRAM_CANALE: canale } = process.env;
 const pubblica = !prova && Boolean(token && canale);
 const attendi = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Errori che non dipendono dalla notizia ma dal canale o dal bot: inutile riprovare
+// senza foto o passare alla notizia dopo. Il giro si ferma e dice cosa controllare.
+const ERRORI_DI_CONFIGURAZIONE = [
+  [/chat not found/i, "TELEGRAM_CANALE non corrisponde a nessun canale: serve @username del canale pubblico (non il nome, non il link t.me) oppure l'id numerico -100... di un canale privato"],
+  [/not enough rights|need administrator|not a member|bot was kicked/i, "il bot non e' amministratore del canale, o non ha il permesso di pubblicare messaggi"],
+  [/unauthorized|invalid token|not found$/i, "TELEGRAM_TOKEN non e' valido: ricopialo da @BotFather"],
+];
+const configurazioneSbagliata = (descrizione) => ERRORI_DI_CONFIGURAZIONE.find(([re]) => re.test(descrizione || ''))?.[1];
+
 async function leggiViste() {
   if (!existsSync(FILE_VISTE)) return null;
   return JSON.parse(await readFile(FILE_VISTE, 'utf8'));
@@ -111,6 +120,12 @@ for (const [i, n] of nuove.entries()) {
   if (i > 0) await attendi(PAUSA_TRA_MESSAGGI_MS);
   let { metodo, parametri } = chiamata(n, canale);
   let esito = await telegram(metodo, parametri);
+  const problema = !esito.ok && configurazioneSbagliata(esito.description);
+  if (problema) {
+    console.error(`Telegram: ${esito.description}
+${problema}`);
+    process.exit(1);
+  }
   if (!esito.ok && metodo === 'sendPhoto') {
     console.warn(`foto rifiutata per "${n.titolo}" (${esito.description}), pubblico solo il testo`);
     ({ metodo, parametri } = ripiegoTesto(n, canale));
