@@ -3,7 +3,7 @@
 Le novita' del Comune di Salsomaggiore Terme pubblicate da sole su un canale Telegram
 **non ufficiale**: notizie, comunicati, avvisi, ordinanze e allerte meteo.
 
-Nessun server e nessuna dipendenza. Una GitHub Action controlla il sito ogni mezz'ora
+Nessun server e nessuna dipendenza. Una GitHub Action controlla il sito ogni ora, dalle 7 alle 23,
 e pubblica solo le novita'.
 
 ## Avvio
@@ -39,7 +39,7 @@ I campi usati: `sys_title` (il nome interno perde apostrofi e punteggiatura),
 `/api/content/download?id=`, `sys_start_pub_date` per le pubblicazioni programmate.
 
 Il `robots.txt` del Comune chiede ai motori di ricerca di non indicizzare
-`/myportal/`. Qui non si indicizza: una richiesta ogni mezz'ora, di giorno, con uno
+`/myportal/`. Qui non si indicizza: una richiesta ogni ora, di giorno, con uno
 user-agent che dice chi siamo. Teniamola cosi'.
 
 ## Il giro

@@ -1,11 +1,11 @@
 name: Novita del Comune
 
-# Ogni mezz'ora dalle 05 alle 21:30 UTC, cioe' dalle 07 alle 23:30 italiane d'estate
-# (un'ora prima d'inverno). Di notte il Comune non pubblica, e i minuti di GitHub
-# Actions dei repository privati non sono infiniti.
+# Ogni ora dalle 05 alle 21 UTC, cioe' dalle 07 alle 23 italiane d'estate (un'ora
+# prima d'inverno). Di notte il Comune non pubblica. Al minuto 17 e non allo scoccare
+# dell'ora: allo :00 GitHub ha la coda piena e i giri programmati partono in ritardo.
 on:
   schedule:
-    - cron: '*/30 5-21 * * *'
+    - cron: '17 5-21 * * *'
   workflow_dispatch:
     inputs:
       pubblica_ultime:
@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: '22'
 
-      # Secret del repository, non di un ambiente: questo job gira 36 volte al
+      # Secret del repository, non di un ambiente: questo job gira 17 volte al
       # giorno e un ambiente creerebbe un deployment a ogni giro.
       - name: Controlla e pubblica
         env:

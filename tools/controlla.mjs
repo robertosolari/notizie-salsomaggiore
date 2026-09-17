@@ -1,5 +1,5 @@
 // Il giro: legge le novita' del Comune, pubblica sul canale quelle mai viste,
-// le segna in data/viste.json. Lo lancia la GitHub Action ogni mezz'ora.
+// le segna in data/viste.json. Lo lancia la GitHub Action ogni ora.
 //
 //   node tools/controlla.mjs [--prova]
 //
