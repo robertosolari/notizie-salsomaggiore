@@ -1,9 +1,13 @@
 # Notizie Salsomaggiore
 
-Le novita' del Comune di Salsomaggiore Terme pubblicate da sole su un canale Telegram
-**non ufficiale**: notizie, comunicati, avvisi, ordinanze e allerte meteo.
+Le novita' di Salsomaggiore Terme pubblicate da sole su un canale Telegram
+**non ufficiale**:
 
-Nessun server e nessuna dipendenza. Una GitHub Action controlla il sito ogni ora, dalle 7 alle 23,
+- dal sito del Comune: notizie, comunicati, avvisi, ordinanze, allerte meteo ed **eventi**;
+- da [Visit Salsomaggiore](https://visitsalsomaggiore.it), il sito turistico ufficiale: gli **eventi**;
+- il venerdi' mattina, l'**agenda del weekend** in un solo messaggio.
+
+Nessun server e nessuna dipendenza. Una GitHub Action controlla i siti ogni ora, dalle 7 alle 23,
 e pubblica solo le novita'.
 
 ## Avvio
@@ -39,21 +43,57 @@ I campi usati: `sys_title` (il nome interno perde apostrofi e punteggiatura),
 `/api/content/download?id=`, `sys_start_pub_date` per le pubblicazioni programmate.
 
 Il `robots.txt` del Comune chiede ai motori di ricerca di non indicizzare
-`/myportal/`. Qui non si indicizza: una richiesta ogni ora, di giorno, con uno
-user-agent che dice chi siamo. Teniamola cosi'.
+`/myportal/`. Qui non si indicizza: due richieste ogni ora (notizie ed eventi), di
+giorno, con uno user-agent che dice chi siamo, piu' una il venerdi' per l'agenda.
+Teniamola cosi'.
+
+### Eventi del Comune
+
+Stessa API, tipo `rer_evento`, cartelle sotto `/Eventi` (sportivi, culturali, altri).
+Campi in piu': `sys_start_date` e `sys_end_date` in UTC (gli eventi di tutto il giorno
+sono a mezzanotte italiana, a volte con la fine prima dell'inizio), `sys_luogo`,
+`sys_canonical_url` per il link. Gli eventi gia' finiti non si pubblicano.
+
+Per l'agenda si chiedono invece i 100 eventi con la data piu' lontana
+(`sortBy=attributes.sys_start_date&desc=true`) e si tengono quelli da venerdi' a domenica.
+
+### Visit Salsomaggiore
+
+WordPress, con l'API REST aperta e un `robots.txt` che non vieta nulla:
+
+```
+https://visitsalsomaggiore.it/it/wp-json/wp/v2/event?per_page=20&orderby=date&order=desc
+```
+
+Titolo, estratto, immagine da `yoast_head_json.og_image`. La data dell'evento non e' un
+campo a parte, sta scritta nel testo: per questo gli eventi di Visit escono come messaggi
+singoli ma non entrano nell'agenda. Lo stesso evento puo' uscire sia dal Comune sia da
+Visit: sono due siti diversi e gli id non si possono confrontare.
+
+Le fonti scartate: tabianoterme.it (eventi di tutta la provincia, quasi tutti doppioni) e
+i giornali locali (niente feed aperto, e servirebbero solo titolo e link).
 
 ## Il giro
 
-1. Legge le ultime 30 novita'. Se il portale non risponde o risponde vuoto, si ferma
-   senza toccare nulla.
-2. **Al primo giro** segna tutte le notizie presenti come gia' viste e non pubblica
-   niente: il canale parte pulito.
+1. Legge le tre fonti: notizie del Comune, eventi del Comune, eventi di Visit. Se una
+   non risponde (o le notizie arrivano vuote) salta quella e va avanti con le altre,
+   senza toccare niente di suo; il giro finisce in errore per farlo vedere.
+2. **La prima volta che legge una fonte** segna tutto quello che c'e' come gia' visto e
+   non pubblica niente: il canale non si riempie di arretrati. Vale per il primo giro e
+   per ogni fonte aggiunta dopo (`fonti` in `data/viste.json` dice quali sono gia' partite).
 3. Pubblica le mai viste dalla piu' vecchia, una ogni 3,5 secondi, e le segna in
    `data/viste.json` una per una: se il giro si interrompe, il successivo non ripete.
-4. Se le novita' sono piu' di 8 in un giro si ferma con un errore: vorrebbe dire che
-   il portale ha cambiato qualcosa, e il canale si riempirebbe di notizie vecchie.
+   Al massimo 8 per giro: se il Comune carica dieci eventi insieme, gli altri escono
+   l'ora dopo.
+4. Se una fonte ha piu' di 25 novita' in un giro, quella fonte si salta con un errore:
+   vorrebbe dire che ha cambiato qualcosa, e il canale si riempirebbe di roba vecchia.
+5. Il venerdi', al primo giro dalle 9, pubblica l'agenda del weekend: gli eventi del
+   Comune da venerdi' a domenica, prima quelli di piu' giorni e poi giorno per giorno,
+   con orario, titolo linkato e luogo. Se il weekend e' vuoto non esce niente. In
+   `data/viste.json`, `agenda` e' il giorno dell'ultima uscita.
 
-Il messaggio e' la foto in evidenza con sezione, titolo, riassunto e link. Senza foto,
+Il messaggio e' la foto in evidenza con sezione, titolo, riassunto e link; per gli eventi
+del Comune anche data, orario e luogo sotto il titolo. Senza foto,
 o se Telegram non riesce a scaricarla (il limite e' 5 MB), esce solo il testo con
 l'anteprima del link. Le didascalie si fermano a 1024 caratteri, tagliando il
 riassunto su una parola.
@@ -83,6 +123,9 @@ Per provare il canale con notizie vere, *Run workflow* con **pubblica_ultime** a
 escono le ultime due notizie, anche se gia' viste, e tutte le altre vengono segnate
 come viste. I giri programmati non usano mai questa opzione.
 
+Per vedere l'agenda senza aspettare venerdi', *Run workflow* con **agenda** spuntato.
+In locale: `AGENDA=1 npm run prova` la stampa senza pubblicarla.
+
 GitHub sospende i workflow programmati dopo 60 giorni senza commit nel repository.
 Qui ogni notizia pubblicata e' un commit, quindi non succede finche' il Comune scrive.
 
@@ -91,7 +134,10 @@ Qui ogni notizia pubblicata e' un commit, quindi non succede finche' il Comune s
 | File | Cosa contiene |
 | --- | --- |
 | `src/comune.js` | API del portale, lettura delle notizie, testo dall'HTML, novita' da pubblicare. Funzioni pure. |
+| `src/eventi.js` | Eventi del Comune e di Visit Salsomaggiore, nello stesso formato delle notizie. Funzioni pure. |
+| `src/agenda.js` | L'agenda del weekend: quando esce, quali eventi, il messaggio. Funzioni pure. |
+| `src/quando.js` | Date in ora italiana: "sabato 19 settembre, 18:00", "dal 17 al 20 settembre". |
 | `src/messaggio.js` | Il messaggio per Telegram, dentro i limiti. Funzioni pure. |
-| `tools/controlla.mjs` | Il giro: legge, pubblica, salva le viste. |
-| `data/viste.json` | **Versionato**, lo crea il primo giro: gli id gia' pubblicati o gia' presenti. |
-| `test/risposta-portale.json` | Una risposta vera del portale, per i test. |
+| `tools/controlla.mjs` | Il giro: legge le fonti, pubblica, salva le viste, l'agenda del venerdi'. |
+| `data/viste.json` | **Versionato**, lo crea il primo giro: gli id gia' pubblicati o gia' presenti, le fonti gia' partite, l'ultima agenda. |
+| `test/*.json` | Risposte vere del portale e di Visit, ridotte, per i test. |

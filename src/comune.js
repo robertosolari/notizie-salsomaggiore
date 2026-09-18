@@ -6,7 +6,7 @@
 // JSON. La stessa API la usiamo noi, senza leggere l'HTML.
 
 export const SITO = 'https://www.comune.salsomaggiore-terme.pr.it';
-const TENANT = 'C_H720';
+export const TENANT = 'C_H720';
 
 /** Le ultime notizie, dalla piu' recente. Tutte le sezioni sono contenuti rer_news. */
 export function urlNotizie({ quante = 30 } = {}) {

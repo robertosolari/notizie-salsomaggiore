@@ -1,0 +1,129 @@
+{
+ "status": "ok",
+ "page": {
+  "index": 1,
+  "entities": [
+   {
+    "id": "6aabc72eb60c32bc8ae377b1",
+    "name": "Gruppi di Cammino Uisp 24 settembre",
+    "parent": "/Eventi/Vivere il comune/Eventi sportivi",
+    "firstPublishedAt": "2026-09-17T10:54:15.963Z",
+    "createdAt": "2026-09-17T10:54:15.963Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Gruppi di Cammino Uisp 24 settembre",
+     "sys_slug": "gruppi-di-cammino-uisp-24-settembre",
+     "sys_canonical_url": "/vivere-il-comune/eventi/eventi-sportivi/gruppi-di-cammino-uisp-24-settembre",
+     "sys_riassunto": "<p>Camminare insime verso uno stile di vita sano</p>",
+     "sys_start_date": "2026-09-24T15:00:00.000Z",
+     "sys_end_date": "2026-09-24T16:00:00.000Z",
+     "sys_start_pub_date": "2026-09-16T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Casa della salute- Fermata M1 MetroSalso"
+    }
+   },
+   {
+    "id": "6aabc478b60c32bc8ae2a083",
+    "name": "Musicanti di Storie e di Canzoni",
+    "parent": "/Eventi",
+    "firstPublishedAt": "2026-09-17T10:44:08.665Z",
+    "createdAt": "2026-09-17T10:44:08.665Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Musicanti di Storie e di Canzoni",
+     "sys_slug": "musicanti-di-storie-e-di-canzoni",
+     "sys_canonical_url": "/vivere-il-comune/eventi/musicanti-di-storie-e-di-canzoni",
+     "sys_riassunto": "<p>a cura di Comune di Salsomaggiore</p>",
+     "sys_start_date": "2026-09-25T19:15:00.000Z",
+     "sys_end_date": "2026-09-25T20:30:00.000Z",
+     "sys_start_pub_date": "2026-09-16T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Sala Cariatidi Palazzo dei Congressi"
+    }
+   },
+   {
+    "id": "6a993fcdb60c32bc8ab2493a",
+    "name": "Sport City Day 2026",
+    "parent": "/Eventi/Vivere il comune",
+    "firstPublishedAt": "2026-09-03T09:37:17.572Z",
+    "createdAt": "2026-09-03T09:37:17.572Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Sport City Day 2026",
+     "sys_slug": "sport-city-day-2026",
+     "sys_canonical_url": "/vivere-il-comune/eventi/sport-city-day-2026",
+     "sys_riassunto": "<p>La piu' grande festa italiana del Movimento</p>",
+     "sys_start_date": "2026-09-20T07:00:00.000Z",
+     "sys_end_date": "2026-09-20T11:00:00.000Z",
+     "sys_start_pub_date": "2026-09-02T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Parco Mazzini"
+    }
+   },
+   {
+    "id": "6a993d7ab60c32bc8ab168a1",
+    "name": "Castelli e Calici",
+    "parent": "/Eventi/Vivere il comune",
+    "firstPublishedAt": "2026-09-03T09:27:22.626Z",
+    "createdAt": "2026-09-03T09:27:22.626Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Castelli e Calici",
+     "sys_slug": "castelli-e-calici",
+     "sys_canonical_url": "/vivere-il-comune/eventi/castelli-e-calici",
+     "sys_riassunto": "<p>Itinerario cicloturistico guidato.</p>",
+     "sys_start_date": "2026-09-19T06:30:00.000Z",
+     "sys_end_date": "2026-09-18T22:00:00.000Z",
+     "sys_start_pub_date": "2026-09-02T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Partenza dal Bar Bocciofila"
+    }
+   },
+   {
+    "id": "6a9938a3b60c32bc8aafac7e",
+    "name": "Campionato a squadre miste di Bridge",
+    "parent": "/Eventi/Vivere il comune/Eventi sportivi",
+    "firstPublishedAt": "2026-09-03T09:05:51.128Z",
+    "createdAt": "2026-09-03T09:05:51.128Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Campionato a squadre miste di Bridge",
+     "sys_slug": "campionato-a-squadre-miste-di-bridge",
+     "sys_canonical_url": "/vivere-il-comune/eventi/eventi-sportivi/campionato-a-squadre-miste-di-bridge",
+     "sys_riassunto": "<p>Federazione Internazionale Gioco Bridge</p>",
+     "sys_start_date": "2026-09-16T22:00:00.000Z",
+     "sys_end_date": "2026-09-19T22:00:00.000Z",
+     "sys_start_pub_date": "2026-09-02T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Palazzo dei Congressi "
+    }
+   },
+   {
+    "id": "6a993847b60c32bc8aaf8794",
+    "name": "Serata di ballo musica latina",
+    "parent": "/Eventi/Vivere il comune/Eventi culturali",
+    "firstPublishedAt": "2026-09-03T09:02:00.273Z",
+    "createdAt": "2026-09-03T09:02:00.273Z",
+    "attributes": {
+     "sys_hidden": false,
+     "sys_title": "Serata di ballo musica latina",
+     "sys_slug": "serata-di-ballo-musica-latina",
+     "sys_canonical_url": "/vivere-il-comune/eventi/musica/serata-di-ballo-musica-latina",
+     "sys_riassunto": "<p>Ritmi latini sulla pista di Tabiano.</p>",
+     "sys_start_date": "2026-09-14T19:00:00.000Z",
+     "sys_end_date": "2026-09-14T21:30:00.000Z",
+     "sys_start_pub_date": "2026-09-02T22:00:00.000Z",
+     "sys_end_pub_date": "2026-12-30T23:00:00.000Z",
+     "sys_uri_immagine_alta_definiz": null,
+     "sys_luogo": "Piazza Verdi"
+    }
+   }
+  ],
+  "entitiesCount": 6
+ }
+}

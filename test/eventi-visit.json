@@ -1,0 +1,71 @@
+[
+ {
+  "id": 28591,
+  "date": "2026-09-17T17:15:42",
+  "date_gmt": "2026-09-17T15:15:42",
+  "slug": "trekking-urbano-con-guida",
+  "status": "publish",
+  "type": "event",
+  "link": "https://visitsalsomaggiore.it/it/event/trekking-urbano-con-guida/",
+  "title": {
+   "rendered": "Trekking urbano con guida"
+  },
+  "excerpt": {
+   "rendered": "“San Francesco 1226 – 2026: sulle tracce dell’essenziale” Il 31 ottobre 2026 a Salsomaggiore si svolgerà un percorso all&#8217;interno della città, accompagnati da una guida. L&#8217;evento è gratuito, ma occorre [&hellip;]",
+   "protected": false
+  },
+  "yoast_head_json": {
+   "og_image": [
+    {
+     "url": "https://visitsalsomaggiore.it/it/wp-content/uploads/sites/2/2021/10/trekking-2.png"
+    }
+   ]
+  }
+ },
+ {
+  "id": 28589,
+  "date": "2026-09-17T16:47:53",
+  "date_gmt": "2026-09-17T14:47:53",
+  "slug": "coppa-italia-3d-csain-2026",
+  "status": "publish",
+  "type": "event",
+  "link": "https://visitsalsomaggiore.it/it/event/coppa-italia-3d-csain-2026/",
+  "title": {
+   "rendered": "Coppa Italia 3D CSAIn 2026"
+  },
+  "excerpt": {
+   "rendered": "Dal 30 ottobre al 1 novembre 2026 il Palazzetto dello Sport di Salsomaggiore Terme ospiterà la Coppa Italia 3D CSAIn 2026. Si tratta di un evento dedicato al tiro con [&hellip;]",
+   "protected": false
+  },
+  "yoast_head_json": {
+   "og_image": [
+    {
+     "url": "https://visitsalsomaggiore.it/it/wp-content/uploads/sites/2/2026/09/BROCHURE_COPPA_ITALIA_2026_page-0001.jpg"
+    }
+   ]
+  }
+ },
+ {
+  "id": 28586,
+  "date": "2026-09-17T16:24:28",
+  "date_gmt": "2026-09-17T14:24:28",
+  "slug": "nasi-orecchie-e-cuori",
+  "status": "publish",
+  "type": "event",
+  "link": "https://visitsalsomaggiore.it/it/event/nasi-orecchie-e-cuori/",
+  "title": {
+   "rendered": "Nasi, orecchie e cuori"
+  },
+  "excerpt": {
+   "rendered": "Nasi, orecchie e cuori sarà una giornata dedicata al benessere, alla relazione e alla scoperta del linguaggio degli animali. L&#8217;evento si terrà presso Ragliando S’Impara APS – Salsomaggiore Terme, località [&hellip;]",
+   "protected": false
+  },
+  "yoast_head_json": {
+   "og_image": [
+    {
+     "url": "https://visitsalsomaggiore.it/it/wp-content/uploads/sites/2/2026/09/dogs.jpg"
+    }
+   ]
+  }
+ }
+]

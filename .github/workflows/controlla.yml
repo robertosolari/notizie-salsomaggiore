@@ -1,5 +1,6 @@
 name: Novita del Comune
 
+# Notizie ed eventi del Comune, eventi di Visit Salsomaggiore, agenda del venerdi'.
 # Ogni ora dalle 05 alle 21 UTC, cioe' dalle 07 alle 23 italiane d'estate (un'ora
 # prima d'inverno). Di notte il Comune non pubblica. Al minuto 17 e non allo scoccare
 # dell'ora: allo :00 GitHub ha la coda piena e i giri programmati partono in ritardo.
@@ -12,6 +13,10 @@ on:
         description: 'Solo per provare: pubblica comunque le ultime N notizie (0 = giro normale, massimo 5)'
         type: number
         default: 0
+      agenda:
+        description: "Pubblica adesso l'agenda del weekend, anche se non e' venerdi'"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -46,6 +51,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CANALE: ${{ secrets.TELEGRAM_CANALE || vars.TELEGRAM_CANALE }}
           PUBBLICA_ULTIME: ${{ inputs.pubblica_ultime || 0 }}
+          AGENDA: ${{ inputs.agenda && '1' || '' }}
         run: node tools/controlla.mjs
 
       # Si salva l'elenco delle notizie pubblicate anche se un messaggio e' fallito:

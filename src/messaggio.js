@@ -1,11 +1,19 @@
 // Il messaggio per il canale Telegram: foto con didascalia, o solo testo se la
 // notizia non ha un'immagine. Funzioni pure.
 
+import { periodo } from './quando.js';
+
 /** Telegram tronca le didascalie delle foto a 1024 caratteri, i messaggi a 4096. */
 export const LIMITE_DIDASCALIA = 1024;
 export const LIMITE_TESTO = 4096;
 
-const sicuro = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+export const sicuro = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+/** Il link in fondo al messaggio, con il nome del sito da cui arriva la notizia. */
+const FONTI = {
+  comune: 'Leggi sul sito del Comune di Salsomaggiore Terme',
+  visit: 'Leggi su Visit Salsomaggiore Terme',
+};
 
 /** Taglia su uno spazio, non a meta' parola. */
 export function accorcia(testo, massimo) {
@@ -17,9 +25,14 @@ export function accorcia(testo, massimo) {
 
 /** Il testo del messaggio, dentro il limite. Il riassunto e' l'unica parte che si accorcia. */
 export function testoMessaggio(n, limite) {
-  const testa = `${n.sezione.emoji} <b>${sicuro(n.sezione.nome)}</b>\n<b>${sicuro(n.titolo)}</b>`;
+  let testa = `${n.sezione.emoji} <b>${sicuro(n.sezione.nome)}</b>\n<b>${sicuro(n.titolo)}</b>`;
+  // Gli eventi: quando e dove, subito sotto il titolo.
+  const quando = periodo(n.inizio, n.fine);
+  if (quando || n.luogo) testa += '\n';
+  if (quando) testa += `\n📅 ${sicuro(quando)}`;
+  if (n.luogo) testa += `\n📍 ${sicuro(n.luogo)}`;
   // Le note legali del Comune chiedono link "chiaramente titolati" con il nome del sito.
-  const piede = `<a href="${sicuro(n.link)}">→ Leggi sul sito del Comune di Salsomaggiore Terme</a>`;
+  const piede = `<a href="${sicuro(n.link)}">→ ${FONTI[n.fonte] || FONTI.comune}</a>`;
   if (!n.riassunto) return `${testa}\n\n${piede}`;
 
   // Lo spazio si misura sul testo escapato, piu' lungo di quello che Telegram
