@@ -65,12 +65,14 @@
   "6aad40beb60c32bc8a2ebde6",
   "6aad4233b60c32bc8a2f1443",
   "6aad43aab60c32bc8a2f7c02",
-  "6aad4550b60c32bc8a2fe309"
+  "6aad4550b60c32bc8a2fe309",
+  "odeon-eefb62fd83c5"
  ],
  "fonti": [
   "notizie",
   "eventi-comune",
-  "visit"
+  "visit",
+  "cinema"
  ],
  "agenda": "2026-09-18"
 }
