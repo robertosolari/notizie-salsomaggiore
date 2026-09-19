@@ -5,6 +5,7 @@ Le novita' di Salsomaggiore Terme pubblicate da sole su un canale Telegram
 
 - dal sito del Comune: notizie, comunicati, avvisi, ordinanze, allerte meteo ed **eventi**;
 - da [Visit Salsomaggiore](https://visitsalsomaggiore.it), il sito turistico ufficiale: gli **eventi**;
+- la **programmazione del cinema Odeon**, un messaggio ogni volta che cambia;
 - il venerdi' mattina, l'**agenda del weekend** in un solo messaggio.
 
 Nessun server e nessuna dipendenza. Una GitHub Action controlla i siti ogni ora, dalle 7 alle 23,
@@ -70,17 +71,40 @@ campo a parte, sta scritta nel testo: per questo gli eventi di Visit escono come
 singoli ma non entrano nell'agenda. Lo stesso evento puo' uscire sia dal Comune sia da
 Visit: sono due siti diversi e gli id non si possono confrontare.
 
+### Cinema Odeon
+
+Il cinema non ha un sito suo e MYmovies, ComingSoon e Movieplayer spesso non hanno i suoi
+orari. Il programma della settimana lo scrive Visit Salsomaggiore in un solo evento che
+riscrive ogni volta, "Cinema Odeon: film in programma":
+
+```
+https://visitsalsomaggiore.it/it/wp-json/wp/v2/event?slug=cinema-odeon-programmazione
+```
+
+Nel contenuto, un blocco per film: titolo in `<h2>`, Regia, Cast, Genere, Durata, poi una
+riga per giorno (`Domenica 20/09 ore 17.00 – 21.15`) e la trama. L'anno non c'e': si prende
+quello che mette la data piu' vicina a oggi. Il cast si lascia fuori perche' spesso e'
+copiato da un altro film.
+
+L'id della novita' e' `odeon-` piu' un'impronta di titoli e orari: un programma nuovo esce,
+un ritocco alla trama no. I giorni gia' passati si tolgono dal messaggio ma non
+dall'impronta, se no il programma uscirebbe di nuovo ogni sera. Un programma con tutti gli
+spettacoli passati non esce: quello nuovo non e' ancora stato scritto. E' l'unica fonte che
+pubblica anche alla prima lettura, perche' non ha arretrati.
+
 Le fonti scartate: tabianoterme.it (eventi di tutta la provincia, quasi tutti doppioni) e
 i giornali locali (niente feed aperto, e servirebbero solo titolo e link).
 
 ## Il giro
 
-1. Legge le tre fonti: notizie del Comune, eventi del Comune, eventi di Visit. Se una
+1. Legge le quattro fonti: notizie del Comune, eventi del Comune, eventi di Visit,
+   programma del cinema Odeon. Se una
    non risponde (o le notizie arrivano vuote) salta quella e va avanti con le altre,
    senza toccare niente di suo; il giro finisce in errore per farlo vedere.
 2. **La prima volta che legge una fonte** segna tutto quello che c'e' come gia' visto e
    non pubblica niente: il canale non si riempie di arretrati. Vale per il primo giro e
    per ogni fonte aggiunta dopo (`fonti` in `data/viste.json` dice quali sono gia' partite).
+   Il cinema fa eccezione e pubblica subito il programma in corso.
 3. Pubblica le mai viste dalla piu' vecchia, una ogni 3,5 secondi, e le segna in
    `data/viste.json` una per una: se il giro si interrompe, il successivo non ripete.
    Al massimo 8 per giro: se il Comune carica dieci eventi insieme, gli altri escono
@@ -135,6 +159,7 @@ Qui ogni notizia pubblicata e' un commit, quindi non succede finche' il Comune s
 | --- | --- |
 | `src/comune.js` | API del portale, lettura delle notizie, testo dall'HTML, novita' da pubblicare. Funzioni pure. |
 | `src/eventi.js` | Eventi del Comune e di Visit Salsomaggiore, nello stesso formato delle notizie. Funzioni pure. |
+| `src/cinema.js` | Il programma del cinema Odeon da Visit Salsomaggiore: film, giorni, orari, il messaggio. Funzioni pure. |
 | `src/agenda.js` | L'agenda del weekend: quando esce, quali eventi, il messaggio. Funzioni pure. |
 | `src/quando.js` | Date in ora italiana: "sabato 19 settembre, 18:00", "dal 17 al 20 settembre". |
 | `src/messaggio.js` | Il messaggio per Telegram, dentro i limiti. Funzioni pure. |

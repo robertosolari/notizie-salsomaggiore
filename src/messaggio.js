@@ -47,6 +47,13 @@ export function testoMessaggio(n, limite) {
 
 /** La chiamata a Telegram per una notizia: { metodo, parametri }. */
 export function chiamata(n, canale) {
+  // Il programma del cinema arriva con il testo gia' composto e piu' link dentro.
+  if (n.testo) {
+    return {
+      metodo: 'sendMessage',
+      parametri: { chat_id: canale, text: n.testo, parse_mode: 'HTML', link_preview_options: { is_disabled: true } },
+    };
+  }
   if (n.immagine) {
     return {
       metodo: 'sendPhoto',

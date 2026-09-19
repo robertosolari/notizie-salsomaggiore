@@ -1,5 +1,6 @@
-// Il giro: legge le novita' e gli eventi del Comune e gli eventi di Visit
-// Salsomaggiore, pubblica sul canale quelli mai visti, li segna in data/viste.json.
+// Il giro: legge le novita' e gli eventi del Comune, gli eventi di Visit
+// Salsomaggiore e il programma del cinema Odeon, pubblica sul canale quelli mai
+// visti, li segna in data/viste.json.
 // Il venerdi' dalle 9 pubblica anche l'agenda del weekend. Lo lancia la GitHub
 // Action ogni ora.
 //
@@ -19,6 +20,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { urlNotizie, leggiNotizie, daPubblicare, ultimeDaPubblicare } from '../src/comune.js';
 import { urlEventiComune, leggiEventiComune, urlEventiVisit, leggiEventiVisit } from '../src/eventi.js';
+import { urlCinema, leggiCinema } from '../src/cinema.js';
 import { agendaDovuta, finestraWeekend, eventiDelWeekend, testoAgenda } from '../src/agenda.js';
 import { giorno } from '../src/quando.js';
 import { chiamata, ripiegoTesto } from '../src/messaggio.js';
@@ -40,6 +42,9 @@ const FONTI = [
   { chiave: 'notizie', nome: 'notizie del Comune', url: urlNotizie(), leggi: (j) => leggiNotizie(j), maiVuota: true },
   { chiave: 'eventi-comune', nome: 'eventi del Comune', url: urlEventiComune(), leggi: (j) => leggiEventiComune(j) },
   { chiave: 'visit', nome: 'eventi di Visit Salsomaggiore', url: urlEventiVisit(), leggi: (j) => leggiEventiVisit(j) },
+  // Un solo messaggio per settimana, e solo con spettacoli ancora da fare: esce
+  // anche alla prima lettura, non ci sono arretrati da evitare.
+  { chiave: 'cinema', nome: 'programma del cinema Odeon', url: urlCinema(), leggi: (j) => leggiCinema(j), subito: true },
 ];
 
 const prova = process.argv.includes('--prova');
@@ -134,7 +139,10 @@ if (ultime) {
   console.log(`giro a mano: pubblico le ultime ${nuove.length} novita', le altre restano segnate come viste`);
 } else {
   for (const { fonte, elementi } of lette) {
-    if (!stato.fonti.includes(fonte.chiave)) {
+    if (!stato.fonti.includes(fonte.chiave) && fonte.subito) {
+      stato.fonti.push(fonte.chiave);
+      console.log(`${fonte.nome}, prima lettura: pubblico subito`);
+    } else if (!stato.fonti.includes(fonte.chiave)) {
       stato.viste.push(...elementi.map((n) => n.id).filter((id) => !stato.viste.includes(id)));
       stato.fonti.push(fonte.chiave);
       console.log(`${fonte.nome}, prima lettura: ${elementi.length} segnate come gia' viste, nessuna pubblicata`);

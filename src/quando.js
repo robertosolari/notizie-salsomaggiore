@@ -36,6 +36,11 @@ export function mezzanotte(ms, piuGiorni = 0) {
   return comeUtc - scarto;
 }
 
+/** L'istante di un giorno e un orario italiani (mese da 1 a 12). */
+export function alle(anno, mese, giorno, ore = 0, minuti = 0) {
+  return mezzanotte(Date.UTC(anno, mese - 1, giorno, 12)) + (ore * 60 + minuti) * 60_000;
+}
+
 const ora = (p) => `${String(p.ora).padStart(2, '0')}:${String(p.minuti).padStart(2, '0')}`;
 // Il portale segna gli eventi di tutto il giorno a mezzanotte: nessun orario da mostrare.
 const conOrario = (p) => p.ora !== 0 || p.minuti !== 0;
